@@ -1,76 +1,207 @@
-/* Genel Sayfa Stilleri */
+/* ====== Tema Değişkenleri ====== */
+:root {
+  --bg-1: #0f0c29;
+  --bg-2: #302b63;
+  --bg-3: #24243e;
+  --text: #e6e6f0;
+  --muted: #a7abb3;
+  --card: rgba(255, 255, 255, 0.06);
+  --card-border: rgba(255, 255, 255, 0.12);
+  --ring: #7c4dff;
+  --shadow: rgba(0, 0, 0, 0.45);
+}
+
+/* Genel kutu modeli */
+*, *::before, *::after { box-sizing: border-box; }
+
+/* ====== Sayfa Düzeni ve Arkaplan ====== */
+html, body { height: 100%; }
 body {
-    background-color: #1a1a1a; /* Koyu bir arka plan */
-    color: #f0f0f0; /* Açık renkli metin */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern bir yazı tipi */
-    display: flex; /* Esnek kutu modeli, içerikleri hizalamak için */
-    flex-direction: column; /* Öğeleri dikeyde sırala */
-    align-items: center; /* Öğeleri yatayda ortala */
-    justify-content: center; /* Öğeleri dikeyde ortala */
-    height: 100vh; /* Sayfanın tüm yüksekliğini kapla */
-    margin: 0; /* Dış boşlukları sıfırla */
-    text-align: center; /* Metinleri ortala */
+  margin: 0;
+  color: var(--text);
+  font: 500 16px/1.4 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: linear-gradient(135deg, var(--bg-1), var(--bg-2) 50%, var(--bg-3));
+  position: relative;
+  overflow-x: hidden;
 }
 
-/* Başlık Stili */
+/* Arkaplan desen ve cam panel (HTML değiştirmeden görsel derinlik) */
+body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(1200px 500px at -10% -20%, rgba(124, 77, 255, 0.25), transparent 60%),
+    radial-gradient(900px 400px at 110% 120%, rgba(0, 200, 255, 0.25), transparent 60%);
+  filter: blur(20px);
+  pointer-events: none;
+}
+
+body::after {
+  content: "";
+  position: absolute;
+  width: min(720px, 92vw);
+  height: 440px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  box-shadow: 0 20px 40px var(--shadow);
+  backdrop-filter: blur(10px) saturate(130%);
+  -webkit-backdrop-filter: blur(10px) saturate(130%);
+  z-index: 0;
+}
+
+/* İçerikleri panelin üstünde tut */
+body > * { position: relative; z-index: 1; }
+
+/* ====== Başlık ====== */
 h2 {
-    font-size: 2.5rem; /* Yazı boyutunu büyüt */
-    color: #ffc107; /* Sarı bir renk */
-    text-shadow: 2px 2px 4px #000000; /* Metne gölge ekle */
+  margin: 0 0 16px;
+  font-size: clamp(24px, 4vw, 34px);
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  background: linear-gradient(90deg, #ffd95a, #ff6b6b 60%, #7c4dff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.2);
 }
 
-/* İnput Alanı Stili */
+/* ====== Girdi (Süre) ====== */
 input[type="number"] {
-    padding: 10px;
-    border: 2px solid #555;
-    border-radius: 8px;
-    background-color: #333;
-    color: #fff;
-    font-size: 1rem;
-    width: 200px;
-    text-align: center;
+  appearance: none;
+  -moz-appearance: textfield;
+  width: min(280px, 70vw);
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--card-border);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+  font-weight: 600;
+  outline: none;
+  transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
 }
 
-/* Genel Düğme Stilleri */
+input[type="number"]:focus {
+  border-color: color-mix(in oklab, var(--ring) 70%, white 0%);
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--ring) 25%, transparent 75%);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Chrome spin butonlarını gizle */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+/* Spacing */
+#isimInput { margin-bottom: 12px; }
+
+/* ====== Butonlar ====== */
 .btn {
-    padding: 12px 24px;
-    margin: 5px;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer; /* Üzerine gelince fare imlecini el yap */
-    transition: all 0.3s ease; /* Animasyonlu geçiş efekti */
-    color: white;
+  --btn-bg: #3a3f47;
+  --btn-hover: #4a505a;
+  --btn-shadow: rgba(0,0,0,.35);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 18px;
+  margin: 6px 4px;
+  border: 0;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: .3px;
+  color: #fff;
+  background: linear-gradient(180deg, color-mix(in oklab, var(--btn-bg) 90%, white 10%), var(--btn-bg));
+  box-shadow: 0 6px 16px var(--btn-shadow), inset 0 -1px 0 rgba(255,255,255,.06);
+  cursor: pointer;
+  transition: transform .15s ease, box-shadow .2s ease, background .2s ease, filter .2s ease;
+  user-select: none;
+  will-change: transform;
 }
 
-.btn:hover {
-    transform: translateY(-3px); /* Üzerine gelince hafifçe yukarı kalksın */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Gölgelendirme */
+.btn:hover { 
+  transform: translateY(-2px);
+  background: linear-gradient(180deg, color-mix(in oklab, var(--btn-hover) 90%, white 10%), var(--btn-hover));
+  box-shadow: 0 10px 22px var(--btn-shadow), inset 0 -1px 0 rgba(255,255,255,.08);
 }
 
-/* Düğmelere Özel Renkler */
+.btn:active { transform: translateY(0); filter: brightness(.98); }
+
+.btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--ring) 25%, transparent 75%), 0 8px 18px var(--btn-shadow);
+}
+
+/* Buton renk temaları */
 .start-btn {
-    background-color: #28a745; /* Yeşil */
+  --btn-bg: #28a745;
+  --btn-hover: #1f8a39;
+  --btn-shadow: rgba(40, 167, 69, .35);
 }
 
 .stop-btn {
-    background-color: #ffc107; /* Sarı */
-    color: #1a1a1a;
+  --btn-bg: #ffc107;
+  --btn-hover: #e0a800;
+  --btn-shadow: rgba(255, 193, 7, .35);
+  color: #1b1b1b;
 }
 
 .reset-btn {
-    background-color: #17a2b8; /* Mavi */
+  --btn-bg: #17a2b8;
+  --btn-hover: #138ea2;
+  --btn-shadow: rgba(23, 162, 184, .35);
 }
 
 .defuse-btn {
-    background-color: #dc3545; /* Kırmızı */
+  --btn-bg: #dc3545;
+  --btn-hover: #b52a37;
+  --btn-shadow: rgba(220, 53, 69, .35);
 }
 
-/* Sonuç Metni Stili */
+/* Parıltı efekti */
+.btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,.15), transparent 70%);
+  opacity: 0;
+  transition: opacity .2s ease;
+  pointer-events: none;
+}
+
+.btn:hover::after { opacity: 1; }
+
+/* ====== Sonuç Ekranı ====== */
 #sonuc {
-    font-size: 1.5rem;
-    margin-top: 20px;
-    font-weight: bold;
-    min-height: 50px; /* Patlama mesajı geldiğinde zıplamayı önler */
+  margin-top: 14px;
+  min-height: 52px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--card-border);
+  background: rgba(255, 255, 255, 0.06);
+  font: 800 18px/1.2 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  letter-spacing: .5px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+}
+
+/* ====== Erişilebilirlik: Animasyon azaltma ====== */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
+
+/* ====== Küçük Ekranlar ====== */
+@media (max-width: 420px) {
+  body::after { height: 420px; }
+  .btn { width: calc(50% - 8px); padding: 12px 12px; }
+  .stop-btn { order: 1; }
+  .reset-btn { order: 2; }
 }
