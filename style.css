@@ -1,0 +1,76 @@
+/* Genel Sayfa Stilleri */
+body {
+    background-color: #1a1a1a; /* Koyu bir arka plan */
+    color: #f0f0f0; /* Açık renkli metin */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern bir yazı tipi */
+    display: flex; /* Esnek kutu modeli, içerikleri hizalamak için */
+    flex-direction: column; /* Öğeleri dikeyde sırala */
+    align-items: center; /* Öğeleri yatayda ortala */
+    justify-content: center; /* Öğeleri dikeyde ortala */
+    height: 100vh; /* Sayfanın tüm yüksekliğini kapla */
+    margin: 0; /* Dış boşlukları sıfırla */
+    text-align: center; /* Metinleri ortala */
+}
+
+/* Başlık Stili */
+h2 {
+    font-size: 2.5rem; /* Yazı boyutunu büyüt */
+    color: #ffc107; /* Sarı bir renk */
+    text-shadow: 2px 2px 4px #000000; /* Metne gölge ekle */
+}
+
+/* İnput Alanı Stili */
+input[type="number"] {
+    padding: 10px;
+    border: 2px solid #555;
+    border-radius: 8px;
+    background-color: #333;
+    color: #fff;
+    font-size: 1rem;
+    width: 200px;
+    text-align: center;
+}
+
+/* Genel Düğme Stilleri */
+.btn {
+    padding: 12px 24px;
+    margin: 5px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer; /* Üzerine gelince fare imlecini el yap */
+    transition: all 0.3s ease; /* Animasyonlu geçiş efekti */
+    color: white;
+}
+
+.btn:hover {
+    transform: translateY(-3px); /* Üzerine gelince hafifçe yukarı kalksın */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Gölgelendirme */
+}
+
+/* Düğmelere Özel Renkler */
+.start-btn {
+    background-color: #28a745; /* Yeşil */
+}
+
+.stop-btn {
+    background-color: #ffc107; /* Sarı */
+    color: #1a1a1a;
+}
+
+.reset-btn {
+    background-color: #17a2b8; /* Mavi */
+}
+
+.defuse-btn {
+    background-color: #dc3545; /* Kırmızı */
+}
+
+/* Sonuç Metni Stili */
+#sonuc {
+    font-size: 1.5rem;
+    margin-top: 20px;
+    font-weight: bold;
+    min-height: 50px; /* Patlama mesajı geldiğinde zıplamayı önler */
+}

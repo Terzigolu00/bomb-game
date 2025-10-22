@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>sayaçOyunu</title>
+    <link rel ="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -12,10 +13,10 @@
     <input type="number" id="isimInput" placeholder="kaç saniye olsun?">
     <br><br>
 
-    <button onclick="baslat()">baslat</button>
-    <button onclick = "Durdur()">Durdur</button>
-    <button onclick = "Reset()">Reset</button>
-    <button onclick="Defuse()">Defuse</button>  
+    <button onclick="baslat()" class="btn start-btn">baslat</button>
+    <button onclick = "Durdur()" class="btn stop-btn">Durdur</button>
+    <button onclick = "Reset()" class="btn reset-btn">Reset</button>
+    <button onclick="Defuse()" class="btn defuse-btn">Defuse</button>  
     <p id="sonuc"></p>
   
     <script src="sayac.js">
