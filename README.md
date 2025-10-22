@@ -1,104 +1,65 @@
-# 💣 Bomba Etkisizleştirme Oyunu
+# 💣 Bomb Game — Geri Sayım ve Defuse Oyunu
 
-Basit ama heyecan verici bir geri sayım oyunu! Zamanla yarışın ve bombayı etkisiz hale getirin.
+Basit ama akıcı bir geri sayım oyunu. Zamanlamayı mükemmel ayarlayıp tam pencerede “Defuse” yap, puan topla!
 
-## 🎮 Oyun Hakkında
+## Özellikler
+- Anlık sayaç: 50ms tick + delta-time ile gecikmesiz akış
+- Başlat/Durdur: Başlat her zaman sıfırdan başlatır; Durdur yalnızca duraklatır
+- Reset: Sadece sıfırlar, otomatik başlatmaz
+- Defuse başarı penceresi: Kullanıcı iki inputla (min–max sn) aralığı belirler; kalan süre bu aralıktaysa başarılı
+- Skor sistemi: localStorage ile kalıcı, Skoru Sıfırla butonu
+- Zorluklar: Kolay (15s) / Orta (10s) / Zor (5s)
+- Hız çarpanı: Slider ile 1.00x–3.00x arası (0.25 adım) hızlandırma
+- Görünüm modu: Saniye (tam) veya Salise (ss.ss) şeklinde gösterim (segmented kontrol)
+- İlerleme çubuğu: Kalan süreyi görsel olarak gösterir
+- Kısayollar: Enter → Başlat (sıfırdan), Space → Defuse
+- Sesler: Patlama ve başarı beep
+- Efekt: Patlama anında kısa “shake” animasyonu
+- Tema: Light/Dark toggle
+- Düzenli UI: “Kontroller” ve “Zorluk” panelleri, büyük skor yazısı
 
-Bu oyun, kullanıcının belirlediği süre içinde bir bombanın etkisiz hale getirilmesini simüle eden web tabanlı bir geri sayım oyunudur. Oyuncular:
-- Geri sayım süresini belirleyebilir
-- Sayacı başlatıp durdurabilir
-- Sayacı sıfırlayabilir
-- Bombayı zamanında etkisiz hale getirebilir
+## Nasıl Oynanır
+1) Süreyi gir (örn. 10)
+2) Başarı aralığını ayarla (örn. 0.10–0.40 sn)
+3) İstersen zorluk ve hız çarpanını seç
+4) Görünümü Saniye veya Salise olarak ayarla
+5) Başlat’a bas (veya Enter). Doğru pencerede Space ile Defuse yap
 
-## 🚀 Özellikler
+- Başarılı Defuse: +10 puan; oyun otomatik Reset olur ve yeniden başlatılmayı bekler
+- Erken ya da pencere dışı: Başarısız mesajı
 
-- **⏱️ Özelleştirilebilir Geri Sayım**: İstediğiniz saniye cinsinden süre belirleyin
-- **🎵 Ses Efektleri**: Patlama anında gerçekçi ses efekti
-- **⏸️ Duraklatma/Devam**: Oyunu istediğiniz zaman duraklatın veya devam ettirin
-- **🔄 Reset**: Oyunu baştan başlatın
-- **💣 Etkisizleştirme**: Zamanında bombayı etkisiz hale getirin
-- **📱 Responsive Tasarım**: Tüm cihazlarda çalışır
+## Kurulum ve Çalıştırma
+- Gereksinim: Sadece modern bir tarayıcı
+- Çalıştırma: index.html dosyasını çift tıklayarak açın (veya tarayıcıdan Dosya > Aç)
 
-## 🎯 Nasıl Oynanır
+## Kısayollar
+- Enter: Başlat (her zaman baştan)
+- Space: Defuse denemesi
 
-1. **Süre Belirleme**: "Kaç saniye olsun?" kutusuna istediğiniz süreyi girin (varsayılan: 10 saniye)
-2. **Başlatma**: "Başlat" butonuna basarak geri sayımı başlatın
-3. **Etkisizleştirme**: Süre dolmadan "Defuse" butonuna basarak bombayı etkisiz hale getirin
-4. **Diğer Kontroller**:
-   - **Durdur**: Geri sayımı duraklatır/devam ettirir
-   - **Reset**: Oyunu baştan başlatır
+## Dosya Yapısı
+- index.html — Arayüz, paneller, kontrol elemanları
+- counter.js — Oyun mantığı, zaman motoru, skor, kısayollar, hız, pencere kontrolü
+- style.css — Tema, düzen, buton/segmented/slider stilleri
+- README.md — Bu dosya
 
-## 🏆 Oyun Senaryoları
+## Teknik Notlar
+- Zaman motoru: performance.now() ile delta hesaplanır; remainingMs -= delta * speedFactor
+- İlerleme çubuğu: totalMsForRun referansı ile yüzdesel genişlik hesaplanır
+- Başarı penceresi: windowMin/windowMax (saniye) → ms’e çevrilir; inclusive aralık kontrolü
+- Skor: localStorage ("skor")
+- Erişilebilirlik: Segmented kontrol butonları klavye (←/→) ve aria-selected ile uyumlu
+- Input ergonomisi: Number input spinner’ları gizli; appearance: textfield kullanılır
 
-- **🎉 Başarı**: Bomba zamanında etkisiz hale getirilirse "Kurtuldun!" mesajı
-- **💥 Patlama**: Süre dolarsa bomba patlar ve ses efekti çalar
-- **⚠️ Geç Kalma**: Bomba patladıktan sonra etkisizleştirme butonu "Geç kaldın..." mesajı verir
+## Özelleştirme
+- Varsayılan süre: index.html’deki süre input değeri; boşsa 10s
+- Zorluk süreleri: counter.js içindeki zorlukSec fonksiyonu
+- Hız aralığı/adımı: index.html’de speedRange (min=1, max=3, step=0.25)
+- Başarı penceresi varsayılanı: index.html’de windowMin=0.10, windowMax=0.40
+- Renk/tema: style.css içindeki :root değişkenleri ve buton varyantları
 
-## 🛠️ Teknik Detaylar
+## Yayınlama (GitHub Pages)
+1) Kodu bir GitHub deposuna gönderin
+2) Settings → Pages → Branch: main (root) → Save
+3) Adresten yayına erişin (örn. https://kullanici.github.io/bomb-game/)
 
-### Dosya Yapısı
-```
-bomb-game/
-├── index.html          # Ana HTML dosyası
-├── sayac.js            # JavaScript oyun mantığı
-└── README.md           # Bu dosya
-```
-
-### Kullanılan Teknolojiler
-- **HTML5**: Yapısal markup
-- **JavaScript (ES6)**: Oyun mantığı ve etkileşimler
-- **Web Audio API**: Ses efektleri için
-- **CSS**: Basit stil (inline)
-
-### Ana Fonksiyonlar
-- `baslat()`: Geri sayımı başlatır
-- `Durdur()`: Duraklatma/devam ettirme toggle
-- `Reset()`: Oyunu sıfırlar ve yeniden başlatır
-- `Defuse()`: Bombayı etkisiz hale getirir
-- `patlamaBeep()`: Patlama ses efekti
-
-## 🚀 Kurulum ve Çalıştırma
-
-1. Projeyi bilgisayarınıza indirin:
-```bash
-git clone [repo-url]
-cd bomb-game
-```
-
-2. `index.html` dosyasını web tarayıcınızda açın:
-   - Dosyaya çift tıklayın, ya da
-   - Tarayıcınızda "Dosya > Aç" seçeneğini kullanın
-
-3. Oyunu oynamaya başlayın!
-
-## 🎮 Oyun İpuçları
-
-- Kısa süreler (3-5 saniye) daha heyecanlı bir deneyim sunar
-- Duraklatma özelliğini strateji için kullanabilirsiniz
-- Ses açık olduğundan emin olun - patlama efekti gerçekçi!
-
-## 🔧 Geliştirme
-
-Projeye katkıda bulunmak isterseniz:
-1. Fork edin
-2. Yeni bir branch oluşturun (`git checkout -b feature/yeni-ozellik`)
-3. Değişikliklerinizi commit edin (`git commit -am 'Yeni özellik eklendi'`)
-4. Branch'inizi push edin (`git push origin feature/yeni-ozellik`)
-5. Pull Request oluşturun
-
-## 📝 Gelecek Özellikler
-
-- [ ] Farklı zorluk seviyeleri
-- [ ] Skor sistemi
-- [ ] Çoklu bomba modu
-- [ ] Görsel efektler
-- [ ] Tema seçenekleri
-- [ ] Mobil dokunmatik kontroller
-
-## 📄 Lisans
-
-Bu proje açık kaynak kodludur ve MIT lisansı altında dağıtılmaktadır.
-
----
-
-🎯 **İyi eğlenceler ve dikkatli olun - bomba gerçek değil ama heyecan gerçek!** 💣💥
+İyi eğlenceler! 🎯💥

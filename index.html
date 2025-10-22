@@ -5,21 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>sayaçOyunu</title>
     <link rel ="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
 </head>
 <body>
+  <div class="app">
+    <header>
+      <h2><span class="gradient-text">Geri Sayım Sayaçı</span> <span class="emoji">⏱️</span></h2>
+      <p id="skor" class="score"></p>
+    </header>
 
-    <h2>Geri Sayım Sayaçı ⏱️</h2>
+    <div id="barContainer"><div id="bar"></div></div>
 
-    <input type="number" id="isimInput" placeholder="kaç saniye olsun?">
-    <br><br>
+    <div class="input-row">
+      <input type="number" id="isimInput" placeholder="kaç saniye olsun?">
+      <input type="number" id="windowMin" step="0.01" min="0" placeholder="başarı min (sn)" value="0.10">
+      <input type="number" id="windowMax" step="0.01" min="0" placeholder="başarı max (sn)" value="0.40">
+      <div class="segmented" id="displayModeGroup" role="tablist" aria-label="Görüntü modu">
+        <button type="button" class="seg-btn active" data-mode="s" aria-selected="true">Saniye</button>
+        <button type="button" class="seg-btn" data-mode="cs" aria-selected="false">Salise</button>
+      </div>
+      <select id="displayMode" class="visually-hidden">
+        <option value="s" selected>Saniye</option>
+        <option value="cs">Salise (ss.ss)</option>
+      </select>
+    </div>
 
-    <button onclick="baslat()" class="btn start-btn">baslat</button>
-    <button onclick = "Durdur()" class="btn stop-btn">Durdur</button>
-    <button onclick = "Reset()" class="btn reset-btn">Reset</button>
-    <button onclick="Defuse()" class="btn defuse-btn">Defuse</button>  
+    <div class="panels">
+      <section class="panel panel-actions">
+        <h3>Kontroller</h3>
+        <div class="group actions">
+          <button onclick="baslat()" class="btn start-btn">Başlat</button>
+          <button onclick="Durdur()" class="btn stop-btn">Durdur</button>
+          <button onclick="Reset()" class="btn reset-btn">Reset</button>
+          <button onclick="Defuse()" class="btn defuse-btn">Defuse</button>
+        </div>
+      </section>
+
+      <section class="panel panel-modes">
+        <h3>Zorluk</h3>
+        <div class="group modes">
+          <button onclick="zorlukSec('kolay')" class="btn">Kolay</button>
+          <button onclick="zorlukSec('orta')" class="btn">Orta</button>
+          <button onclick="zorlukSec('zor')" class="btn">Zor</button>
+        </div>
+        <div class="speed-control">
+          <label for="speedRange">Hız: <span id="speedValue">1.00x</span></label>
+          <input type="range" id="speedRange" min="1" max="3" step="0.25" value="1" />
+          <div class="speed-ticks">
+            <span>1x</span><span>1.5x</span><span>2x</span><span>2.5x</span><span>3x</span>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="group utils">
+      <button onclick="toggleTheme()" class="btn">Tema</button>
+      <button onclick="skorSifirla()" class="btn reset-btn">Skoru Sıfırla</button>
+    </div>
+
     <p id="sonuc"></p>
-  
-    <script src="counter.js">
-    </script>
+  </div>
+  <script src="counter.js"></script>
 </body>
 </html>
